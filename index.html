@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- IMPORT ALL THE BOOTSTRAP RELATED CSS & SCRIPTS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+
+
+    <style>
+        body {
+            background-color: black;
+            font-family: monospace;
+        }
+
+        .album {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        .album-cover {
+            width: 100%;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .album-artist {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        .album-title {
+            /* CLAMP FOR TEXT */
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 0.2rem;
+            color: lightgrey;
+        }
+
+        .album-genre {
+            color: grey;
+        }
+
+        /* EXERCISE 1 RELATED: */
+        @keyframes fadeInJumbotron {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fadeIn {
+            animation-name: fadeInJumbotron;
+            animation-duration: 4s;
+        }
+
+        /* EXERCISE 4 RELATED: */
+        table {
+            font-size: 1.125rem;
+        }
+
+        table tbody>:nth-child(odd) {
+            background-color: white;
+            color: black;
+        }
+
+        /* EXERCISE 6 RELATED */
+
+        .btn-lg {
+            position: relative;
+        }
+
+        .btn-lg:hover {
+            border: none;
+        }
+
+        .addTrackBtn:after {
+            content: '';
+            left: -6px;
+            top: -4px;
+            position: absolute;
+            width: 0;
+            height: 0;
+            z-index: -1;
+            border-radius: 5px;
+            background-color: #5c636a;
+            border-color: #5c636a;
+            transition: width height 1s ease-in;
+        }
+
+        .addTrackBtn:hover:after {
+            width: 110%;
+            height: 115%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="
+    navbar navbar-expand-md navbar-dark
+    sticky-top
+    bg-black bg-opacity-75
+    ">
+        <button class="navbar-toggler" style="margin-left: 1rem" type="button" data-toggle="collapse"
+            data-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="nav navbar-nav justify-content-around w-100">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white h4">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#bestAlbums" class="nav-link text-white h4">Best Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#bestAlbum" class="nav-link text-white h4">Best Album</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#admiration" class="nav-link text-white h4">Featured artist</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#worstAlbums" class="nav-link text-white h4">Worst Albums</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- EXERCISE 1
+        Create a Jumbotron section with a quick explanation / image of the website.
+        Make it appear with a fade-in animation effect when the page loads.
+    -->
+
+    <!-- DO LATER -->
+    <!-- EXERCISE 2 --- ????????????????????
+        Use a Bootstrap Card to contain every album in the favorite list you previously created.
+        Use the elements of a card bootstrap provides you with to display nicely the album informations such as: album title, artist, year, etc..
+    -->
+    <!-- ############### -->
+    <!-- ###  EXTRA  ### -->
+    <!-- ############### -->
+
+    <!-- EXERCISE 8
+        The modal should contain 2 buttons at the bottom:
+        - Add => Adds a new track in the tracklist with the data of the input fields.
+        - Close => closes the modal
+
+        https://getbootstrap.com/docs/4.6/components/alerts/
+        [EXTRA] Make the message disappear after 5 seconds
+        https://www.w3schools.com/jsref/met_win_settimeout.asp
+    -->
+
+    <!-- EXERCISE 9
+        Alert the user with a success message when the track gets added, or when a track gets deleted.
+     -->
+
+    <!-- EXERCISE 10
+        Considering the "Add Track" functionality that you've created on ex. 8: 
+         - The new list-element added to the list should appear with a fade-in effect
+     -->
+
+    <!-- EXERCISE 11
+        Considering the button you've created in ex. 5 that deletes the row:
+        Add a fade-out effect to the row before it gets removed, using a CSS transition effect
+    -->
+
+    <!-- JUMBOTRON -->
+    <div class="jumbotron d-flex flex-column">
+        <h1 class="text-center text-white">Welcome to my music corner</h1>
+        <img src="./tapestry.png" alt="" style="object-fit:cover">
+    </div>
+    <!-- /JUMBOTRON -->
+
+
+
+    <div class="container mt-5">
+        <h2 id="bestAlbums" class="text-white">Best albums</h2>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/CollegeDropout-1425314354.jpg?quality=.8&height=793.225558121632&width=800"
+                        alt="" class="album-cover rounded" />
+                    <span class="font-weight-bold position-absolute text-white px-2 py-2"
+                        style="font-size: 0.9rem">Hip-Hop</span>
+                    <h4 class="album-artist">Kanye West</h4>
+                    <h6 class="album-title">The College Dropout</h6>
+                    <p class="album-genre">Hip-Hop</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/LateRegistration-1425314361.jpg?quality=.8&height=800&width=800"
+                        alt="" class="album-cover rounded" />
+                    <span class="font-weight-bold position-absolute text-white px-2 py-2"
+                        style="font-size: 0.9rem">Hip-Hop</span>
+                    <h4 class="album-artist">Kanye West</h4>
+                    <h6 class="album-title">Late registration</h6>
+                    <p class="album-genre">Hip-Hop</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/Graduation-1425314359.jpg?quality=.8&height=800&width=800"
+                        alt="" class="album-cover rounded" />
+                    <span class="font-weight-bold position-absolute text-white px-2 py-2"
+                        style="font-size: 0.9rem">Hip-Hop</span>
+                    <h4 class="album-artist">Kanye West</h4>
+                    <h6 class="album-title">Graduation</h6>
+                    <p class="album-genre">Hip-Hop</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/808s-1425314352.jpg?quality=.8&height=800&width=800"
+                        alt="" class="album-cover rounded" />
+                    <span class="font-weight-bold position-absolute text-white px-2 py-2"
+                        style="font-size: 0.9rem">Hip-Hop</span>
+                    <h4 class="album-artist">Kanye West</h4>
+                    <h6 class="album-title">808s & Heartbreak</h6>
+                    <p class="album-genre">Hip-Hop</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/DarkTwistedFantasy-1425314358.jpg?quality=.8&height=600&width=600"
+                        alt="" class="album-cover rounded" />
+                    <span class="font-weight-bold position-absolute text-white px-2 py-2"
+                        style="font-size: 0.9rem">Hip-Hop</span>
+                    <h4 class="album-artist">Kanye West</h4>
+                    <h6 class="album-title">My Beautiful Dark Twisted Fantasy</h6>
+                    <p class="album-genre">Hip-Hop</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/Yeezus-1425314365.jpg?quality=.8&height=800&width=800"
+                        alt="" class="album-cover rounded" />
+                    <span class="text-black font-weight-bold position-absolute px-2 py-2"
+                        style="font-size: 0.9rem">Hip-Hop</span>
+                    <h4 class="album-artist">Kanye West</h4>
+                    <h6 class="album-title">Yeezus</h6>
+                    <p class="album-genre">Hip-Hop</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <h2 id="bestAlbum" class="text-white">Best album from Kanye West</h2>
+        <div class="card">
+            <img class="p-5"
+                src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/Yeezus-1425314365.jpg?quality=.8&height=800&width=800"
+                class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h3 class="card-title">Kanye West</h3>
+                <div class="row">
+                    <h3 class="col-4 card-title">
+                        <span class="h5 text-uppercase">Album:</span> Yeezus
+                    </h3>
+                    <h3 class="col-4 card-title">
+                        <span class="h5 text-uppercase">Duration:</span> 40:01
+                    </h3>
+                    <h3 class="col-4 card-title">
+                        <span class="h5 text-uppercase">Genre:</span> Hip-Hop
+                    </h3>
+                </div>
+                <p class="card-text">
+                    Marking a blunt break with the filigreed maximalism he nailed on My
+                    Beautiful Dark Twisted Fantasy, Kanye's sixth solo album trades
+                    smooth soul and anthemic choruses for jarring electro, acid house,
+                    and industrial grind while delivering some of his most lewd and
+                    heart-crushing tales yet.
+                </p>
+                <a href="https://pitchfork.com/reviews/albums/18172-kanye-west-yeezus/" target="_blank"
+                    class="btn btn-primary bg-dark">Read Pitchfork review</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXERCISE 4
+        Create a new section with an album tracklist inside a Bootstrap table.
+        The row colors of the table must be alternated.
+
+        There should be a column for the track order number, one for the title and one for the track duration.
+        (If you want, you can also add extra columns)
+    -->
+
+    <!-- EXERCISE 5
+        Add a DELETE bootstrap button at the end of each row of the tracklist. 
+        Attach the functionality to remove its row when it gets clicked. (Requires DOM manipulation)  
+
+        ## EXTRA CSS CHALLENGE ##
+        Make only one button visible at a time, for each row, when the single row gets hovered. 
+        Animate it with a fade-in effect upon the user hovering and fade-out when he/she goes away from it.
+    -->
+
+    <div class="container mt-5">
+        <h3 class="text-center text-white">Yeezus Tracklist</h3>
+
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>On Sight</td>
+                    <td>2:36</td>
+                    <td class="btn btn-primary w-100 text-black">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Black Skinhead</td>
+                    <td>3:08</td>
+                    <td class="btn btn-light w-100 text-white">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>I Am a God (feat. God)</td>
+                    <td>3:51</td>
+                    <td class="btn btn-primary w-100 text-black">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>New Slaves</td>
+                    <td>4:16</td>
+                    <td class="btn btn-light w-100 text-white">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Hold my Liquor</td>
+                    <td>5:26</td>
+                    <td class="btn btn-primary w-100 text-black">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>I'm In It</td>
+                    <td>3:54</td>
+                    <td class="btn btn-light w-100 text-white">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>Blood On the Leaves</td>
+                    <td>6:00</td>
+                    <td class="btn btn-primary w-100 text-black">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>Guilt trip</td>
+                    <td>4:03</td>
+                    <td class="btn btn-light w-100 text-white">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>Send It Up</td>
+                    <td>2:58</td>
+                    <td class="btn btn-primary w-100 text-black">Delete</td>
+                </tr>
+                <tr>
+                    <th scope="row">10</th>
+                    <td>Bound 2</td>
+                    <td>3:49</td>
+                    <td class="btn btn-light w-100 text-white">Delete</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- EXERCISE 6
+            Add an "Add Track" button under the tracklist of the album. 
+            It should have a nice shadow transition when its hovered (with the box-shadow property) 
+            to look like as if the button was elevating itself.
+        -->
+
+        <button type="button" class="btn btn-secondary btn-lg addTrackBtn" data-toggle="modal"
+            data-target="#trackModal">Add Track</button>
+    </div>
+
+    <!-- EXERCISE 7
+        On the click of "Add Track" button, a modal should appear.
+        (check in the documentation the modal + button example)
+        
+        The modal shall contain single input fields (avoid using a <form> to wrap the inputs) with:
+        - Track number
+        - Track title
+        - Track duration
+
+        The fields should be inside an Input Group and divided in 2 columns.
+    -->
+
+    <!-- MODAL -->
+
+    <div class="modal fade" id="trackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="trackModal">Add Track</h5>
+                </div>
+                <div class="modal-body">
+
+                    <div class="input-group row input-group-md mb-3">
+                        <div class="col-6 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Track Number</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Track Title</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+
+                        <div class="col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Track Duration</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success">Add Track</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /MODAL -->
+
+
+
+    <div class="container mt-5">
+        <h2 id="worstAlbums" class="text-white">Worst albums</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://static.stereogum.com/uploads/2016/03/apres-1000x1000.jpg" alt=""
+                        class="album-cover rounded" />
+                    <h4 class="album-artist">Iggy Pop</h4>
+                    <h6 class="album-title">aprés</h6>
+                    <p class="album-genre">Punk</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://static.stereogum.com/uploads/2016/03/skullring.jpg" alt="" class="album-cover" />
+                    <h4 class="album-artist">Iggy Pop</h4>
+                    <h6 class="album-title">Skull Ring</h6>
+                    <p class="album-genre">Punk</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://static.stereogum.com/uploads/2016/03/beamemup-1000x1000.jpg" alt=""
+                        class="album-cover rounded" />
+                    <h4 class="album-artist">Iggy Pop</h4>
+                    <h6 class="album-title">Beat 'Em Up</h6>
+                    <p class="album-genre">Punk</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://static.stereogum.com/uploads/2016/03/brickbybrick-1000x1000.jpg" alt=""
+                        class="album-cover rounded" />
+                    <h4 class="album-artist">Iggy Pop</h4>
+                    <h6 class="album-title">Brick By Brick</h6>
+                    <p class="album-genre">Punk</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://static.stereogum.com/uploads/2016/03/zombiebirdhouse.jpg" alt=""
+                        class="album-cover rounded" />
+                    <h4 class="album-artist">Iggy Pop</h4>
+                    <h6 class="album-title">Zombie Birdhouse</h6>
+                    <p class="album-genre">Punk</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="album">
+                    <img src="https://static.stereogum.com/uploads/2016/03/instinct-1000x1000.png" alt=""
+                        class="album-cover rounded" />
+                    <h4 class="album-artist">Iggy Pop</h4>
+                    <h6 class="album-title">Instinct</h6>
+                    <p class="album-genre">Punk</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container mt-5">
+        <h2 id="admiration" class="text-white">Featured artist</h2>
+        <div class="row mt-3">
+            <div class="col-12 col-md-5 text-white d-flex flex-column">
+                <h3>Hudson Mohawke</h3>
+                <h4>DJ, Producer</h4>
+                <p class="mb-0">
+                    In 2012, Hudson Mohawke began a series of collaborations with Kanye
+                    West, resulting in production credits on the GOOD Music label album
+                    Cruel Summer. On 17 January 2013, it was announced that Mohawke had
+                    officially signed with GOOD Music as a producer, whilst remaining
+                    with Warp and LuckyMe as a recording artist.
+                </p>
+            </div>
+            <div class="col-12 col-md-7 d-flex">
+                <img src="https://www.electronicbeats.net/app/uploads/2015/03/HudsonMohawke_EBArtists.jpg"
+                    alt="picture of hudson mohawke" class="img-fluid mw-100 align-self-sm-end" />
+            </div>
+        </div>
+    </div>
+
+    <!-- EXERCISE 7
+        Just covers!
+        Create a tapestry of album pictures. Every album picture must be "squared" (use CSS to achieve that).
+        Put at least 20 covers (also repeated) to have a nice tapestry effect and see how Bootstrap handles it.
+    -->
+
+    <div class="container mt-5">
+        <h2 class="text-white">I guess this is tapestry?</h2>
+        <div class="row mt-2 p-3">
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/CollegeDropout-1425314354.jpg?quality=.8&height=793.225558121632&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/LateRegistration-1425314361.jpg?quality=.8&height=800&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/Graduation-1425314359.jpg?quality=.8&height=800&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/808s-1425314352.jpg?quality=.8&height=800&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/DarkTwistedFantasy-1425314358.jpg?quality=.8&height=600&width=600"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/watch-the-throne-album-cover1-1425322475.jpg?quality=.8&height=800&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/CruelSummer-1425314356.jpg?quality=.8&height=804.375&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/Yeezus-1425314365.jpg?quality=.8&height=800&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/SoHelpMeGod-1425314364.jpg?quality=.8&height=600&width=600"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://img.discogs.com/8SNXLz8S54_-LytFEWSYRwR458E=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-8864718-1470370211-9581.jpeg.jpg"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://img.discogs.com/8Qmo7t8uBJHGcsBF57TxCbDR8Hk=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-12292679-1533986113-7518.jpeg.jpg"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://rovimusic.rovicorp.com/image.jpg?c=nOYOaa0IWvGruy-P6AMGXoAf7E_1E-2MlBBPmPAXRBU=&f=4"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://rovimusic.rovicorp.com/image.jpg?c=p0DvGvJOUVKNrcJ4xQG68D6KsMttLlyBmmVTZ6_CLs0=&f=4"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://ucarecdn.com/3e7075dc-d026-415e-93c9-1a795b43432c/-/preview/MqpNuf1t" alt=""
+                class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://img.discogs.com/8SNXLz8S54_-LytFEWSYRwR458E=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-8864718-1470370211-9581.jpeg.jpg"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/DarkTwistedFantasy-1425314358.jpg?quality=.8&height=600&width=600"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/Graduation-1425314359.jpg?quality=.8&height=800&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+            <img src="https://mtv.mtvnimages.com/uri/mgid:file:http:shared:mtv.com/news/wp-content/uploads/2015/03/CollegeDropout-1425314354.jpg?quality=.8&height=793.225558121632&width=800"
+                alt="" class="col-lg-2 img-fluid mw-100 col-md-3 col-4 p-0" />
+        </div>
+    </div>
+
+
+    <footer class="text-center mt-5 mb-2">
+        <h6 class="text-white">My favorite and not so favorite albums</h6>
+    </footer>
+
+
+
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+
+    <!-- ANIMATIONS -->
+    <script>
+
+        window.onload = function () {
+            // Jumbotron fade-in exercise:
+            let jumbotronElement = document.querySelector(".jumbotron");
+            jumbotronElement.classList.add("fadeIn")
+
+
+            // Tracklist delete exercise:
+            let tableTrackList = document.querySelectorAll("tbody tr>:last-child");
+            console.log(tableTrackList);
+
+            for (track of tableTrackList) {
+                track.addEventListener("click", function removeTrack(event) {
+                    let trackToRemove = event.target.parentElement;
+                    trackToRemove.style.display = "none";
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>
